@@ -23,3 +23,8 @@ const getdata = async function (req , res) {
         return res.send({status : false , msg : err.message})
     }
 }
+
+
+module.exports={
+    getdata
+}
