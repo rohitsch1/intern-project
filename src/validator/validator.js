@@ -12,7 +12,7 @@ const isValidObjectId = (mongoDbId) => {
 };
 //-------------------name--------------
 const isValidName = (name) => {
-    const regx = /^[A-Za-z]{2,}$/
+    const regx = /^[a-z ,.'-]+$/i
     return regx.test(name)
 };
 

@@ -10,6 +10,8 @@ const createintern = async function (req , res) {
         let college = data.collegeName;
         let newintern = await collegeModel.findOne({name : college });
 
+        if (Object.keys(data).length==0)  return res.status(400).send({status : false , msg : "body is empty "})
+
         if (!validator.isValidElem(name)) return res.status(400).send({status : false , msg : "name is require "})
         if (!validator.isValidName(name)) return res.status(400).send({status : false , msg : "name should be in alphabets"})
 
@@ -36,10 +38,6 @@ const createintern = async function (req , res) {
             isDeleted: isDeleted ? isDeleted : false
             
         }
-         
-
-
-
         let saveData= await internModel.create(newcollege)
        
         return res.status(201).send({ status : true , msg : saveData });
