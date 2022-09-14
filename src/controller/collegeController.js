@@ -12,19 +12,18 @@ const createCollege = async function(req,res){
 
         if (!validator.isValidElem(name)) return res.status(400).send({status : false , msg : "name is require "})
         if (!validator.isValidName(name)) return res.status(400).send({status : false , msg : "name should be in alphabets"})
-        let findName = await collegeModel.findOne({collegeName : name})
+        let findName = await collegeModel.findOne({name})
         if (findName)  return res.status(400).send({status : false , msg : "the college name is already present"})
  
-        if (!validator.isValidElem(fullName)) return res.status(400).send({status : false , msg : "full name is require "})
+        if (!validator.isValidElem(fullName)) return res.status(400).send({status : false , msg : "full name is require"})
         if (!validator.isValidName(fullName)) return res.status(400).send({status : false , msg : " full name should be in alphabets"})
 
-        if (!validator.isValidElem(logoLink)) return res.status(400).send({status : false , msg : "logoLink is require "})
+        if (!validator.isValidElem(logoLink)) return res.status(400).send({status : false , msg : "logoLink is require"})
 
         let document ={
             name : name.trim() ,
             fullName:fullName.trim(),
-            logoLink:logoLink,
-            isDeleted:isDeleted? isDeleted :false
+            logoLink:logoLink
         }
 
         let saveData = await collegeModel.create(document)
