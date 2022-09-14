@@ -1,4 +1,5 @@
-
+const internModel= require ('../model/internModel')
+const collegeModel=require ('../model/collegeModel')
 
 
 const getdata = async function (req , res) {
