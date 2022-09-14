@@ -9,8 +9,8 @@ route.get('/test-me' ,function(req,res){
     res.send({msg : "working fine "})
 })
 
-// route.post('/functionup/colleges',collegeController. )
-route.post(' /functionup/interns',internController.createintern)
+route.post('/functionup/colleges',collegeController.createCollege )
+route.post('/functionup/interns',internController.createintern)
 route.get('/functionup/collegeDetails',collegeController.getdata)
 
 

@@ -5,15 +5,17 @@ const createintern = async function (req , res) {
     try {
 
         let data = req.body;
+        
         let college = data.collegeName;
-        let newintern = await collegeModel.findOne({collegeName : college });
+        let newintern = await collegeModel.findOne({name : college });
         let collegeid = newintern["_id"];
 
         let newcollege = {
             name : data.name,
             mobile : data.mobile,
             email : data.email,
-            collegeId : collegeid
+            collegeId : collegeid,
+            isDeleted: data.isDeleted
             
         }
         let saveData= await internModel.create(newcollege)

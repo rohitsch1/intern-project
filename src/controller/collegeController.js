@@ -2,11 +2,22 @@ const internModel= require ('../model/internModel')
 const collegeModel=require ('../model/collegeModel')
 
 
+const createCollege = async function(req,res){
+    try {
+        let data = req.body 
+        let saveData = await collegeModel.create(data)
+        return res.status(201).send({status: true , data : saveData})
+
+
+    }catch(err){
+        return res.status(500).send({status :false , msg : err.message})
+    }
+}
 
 const getdata = async function (req , res) {
     try {
 
-        let requestQuery = req.query
+        let requestQuery = req.query.collegeName
         let collegedata = await collegeModel.findOne({name :requestQuery})
         if(!collegedata)  return res.status(400).send({status : false , msg : "No college present with this College name"})
         let collegeDataId = collegedata._id
@@ -28,6 +39,10 @@ const getdata = async function (req , res) {
 }
 
 
+
+
 module.exports={
-    getdata
+    getdata,
+    createCollege
+    
 }
