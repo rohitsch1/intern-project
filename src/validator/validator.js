@@ -22,4 +22,18 @@ const isValidName = (name) => {
 //     return regx.test(text)
 // };
 
-module.exports = {  isValidEmail, isValidObjectId,isValidName }
+const isValidmobile= (data) => {
+    const regx = /^((\+91)?|91)?[789][0-9]{9}$/
+    return regx.test(data)
+};
+
+
+const isValidElem= (data) =>{
+    if (data == undefined || data == null) return false
+    if (typeof(data)==="string" && data.trim()=="" ) return false
+    return true
+}
+
+
+
+module.exports = {  isValidEmail, isValidObjectId,isValidName,isValidElem ,isValidmobile }
