@@ -17,6 +17,13 @@ mongoose.connect("mongodb+srv://Rohitsch:S*Crohit16@cluster0.31aen.mongodb.net/g
 app.use('/', route);
 
 
+// edge case for api req
+app.use((req, res, next) => {
+    res.status(400).send({status: false ,error: "Not found" });
+   })
+
+
+
 app.listen(process.env.PORT || 3000, function () {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });

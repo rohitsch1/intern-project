@@ -10,32 +10,36 @@ const createintern = async function (req , res) {
         let college = data.collegeName;
         let newintern = await collegeModel.findOne({name : college });
 
-        if (Object.keys(data).length==0)  return res.status(400).send({status : false , msg : "body is empty "})
 
-        if (!validator.isValidElem(name)) return res.status(400).send({status : false , msg : "name is require "})
+        // ----------------- Checking the body is empty or not-------------------------------------------------
+        if (Object.keys(data).length==0)  return res.status(400).send({status : false , msg : "body is empty"})
+        
+        //-------------------checking the name validation-------------------------------------------- 
+        if (!validator.isValidElem(name)) return res.status(400).send({status : false , msg : "name is require"})
         if (!validator.isValidName(name)) return res.status(400).send({status : false , msg : "name should be in alphabets"})
 
-        
+        // ----------------------checking the email validation-----------------------------------------
         if (!validator.isValidElem(email)) return res.status(400).send({status : false , msg : "email is require "})
         if (!validator.isValidEmail(email)) return res.status(400).send({status : false , msg : "email must in correct formate"})
         let findemail= await internModel.findOne ({ email})
         if (findemail) return res.status(400).send({status : false , msg : "email is already present"})
 
-
+        // -----------------------checking the mobile number validation--------------------------------------------------
         if (!validator.isValidElem(mobile)) return res.status(400).send({status : false , msg : "mobile number is require "})
         if (!validator.isValidmobile(mobile)) return res.status(400).send({status : false , msg : "mobile number must be 10 digits"})
         let findmobile= await internModel.findOne ({ mobile})
         if (findmobile) return res.status(400).send({status : false , msg : "mobile number is already present"})
-
+         
+        // -------------------checking the intern is present or not----------------------------------------
         if(!newintern) return res.status(400).send({status : false, "msg" : "No intern found with proper college name"});
         let collegeid = newintern["_id"];
-
+        
+        // ---------------------creating a new object----------------------------------------------
         let newIntern = {
             name : name.trim(),
             mobile : mobile.trim(),
             email : email,
-            collegeId : collegeid,
-            
+            collegeId : collegeid
         }
         let saveData= await internModel.create(newIntern)
        
