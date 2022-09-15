@@ -8,7 +8,7 @@ const createCollege = async function(req,res){
         let data = req.body 
         if (Object.keys(data).length==0)  return res.status(400).send({status : false , msg : "body is empty "})
         
-        let {name , fullName, logoLink  }= data
+        let {name , fullName, logoLink ,isDeleted }= data
 
         if (!validator.isValidElem(name)) return res.status(400).send({status : false , msg : "name is require "})
         if (!validator.isValidName(name)) return res.status(400).send({status : false , msg : "name should be in alphabets"})
@@ -23,7 +23,8 @@ const createCollege = async function(req,res){
         let document ={
             name : name.trim() ,
             fullName:fullName.trim(),
-            logoLink:logoLink
+            logoLink:logoLink,
+            isDeleted: isDeleted?isDeleted:false
         }
 
         let saveData = await collegeModel.create(document)

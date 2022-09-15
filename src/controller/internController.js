@@ -30,13 +30,14 @@ const createintern = async function (req , res) {
         if(!newintern) return res.status(400).send({status : false, "msg" : "No intern found with proper college name"});
         let collegeid = newintern["_id"];
 
-        let newcollege = {
+        let newIntern = {
             name : name.trim(),
             mobile : mobile.trim(),
             email : email,
-            collegeId : collegeid
+            collegeId : collegeid,
+            
         }
-        let saveData= await internModel.create(newcollege)
+        let saveData= await internModel.create(newIntern)
        
         return res.status(201).send({ status : true , msg : saveData });
 
