@@ -24,6 +24,10 @@ const isValidElem= (data) =>{
     return true
 }
 
+const isValidLogo = (logolink)=>{
+    let url =/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+    return url.test(logolink)
+}
 
 
-module.exports = {  isValidEmail,isValidName,isValidElem ,isValidmobile }
+module.exports = {  isValidEmail,isValidName,isValidElem ,isValidmobile ,isValidLogo }

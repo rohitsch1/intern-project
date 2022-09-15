@@ -19,6 +19,10 @@ const createCollege = async function(req,res){
         if (!validator.isValidName(fullName)) return res.status(400).send({status : false , msg : " full name should be in alphabets"})
 
         if (!validator.isValidElem(logoLink)) return res.status(400).send({status : false , msg : "logoLink is require"})
+        if (!validator.isValidLogo(logoLink)) return res.status(400).send({status : false , msg : "It should be a link "})
+        let findLogo = await collegeModel.findOne({logoLink})
+        if (findLogo)  return res.status(400).send({status : false , msg : "this logo link is already present for some other College"}) 
+
 
         let document ={
             name : name.trim() ,
@@ -62,10 +66,9 @@ const getdata = async function (req , res) {
 }
 
 
-
-
 module.exports={
     getdata,
     createCollege
+   
     
 }
