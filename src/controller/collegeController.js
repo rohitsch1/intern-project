@@ -26,8 +26,8 @@ const createCollege = async function(req,res){
         // ---------------------checking the logo link validation--------------------------------------
         if (!validator.isValidElem(logoLink)) return res.status(400).send({status : false , message : "logoLink is require"})
         if (!validator.isValidLogo(logoLink)) return res.status(400).send({status : false , message : "It should be a link "})
-        let findLogo = await collegeModel.findOne({logoLink})
-        if (findLogo)  return res.status(400).send({status : false , message : "this logo link is already present for some other College"}) 
+        // let findLogo = await collegeModel.findOne({logoLink})
+        // if (findLogo)  return res.status(400).send({status : false , message : "this logo link is already present for some other College"}) 
 
 
         //-----------------------creating a object----------------------------------------
