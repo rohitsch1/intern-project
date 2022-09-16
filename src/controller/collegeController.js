@@ -68,7 +68,7 @@ const getdata = async function (req , res) {
             intern : interns
         }
 
-        return res.status(200).send({ status : true ,data : document })
+        return res.status(200).send({ status : true, message : "get the proper data", data : document })
 
     }catch (err) {
         return res.status(500).send({status : false , message : err.message})

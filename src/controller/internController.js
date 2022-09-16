@@ -31,7 +31,7 @@ const createintern = async function (req , res) {
         if (findmobile) return res.status(400).send({status : false , message : "mobile number is already present"})
          
         // -------------------checking the intern is present or not----------------------------------------
-        if(!newintern) return res.status(400).send({status : false, "message" : "No intern found with proper college name"});
+        if(!newintern) return res.status(400).send({status : false, message : "No intern found with proper college name"});
         let collegeid = newintern["_id"];
         
         // ---------------------creating a new object----------------------------------------------
@@ -43,7 +43,7 @@ const createintern = async function (req , res) {
         }
         let saveData= await internModel.create(newIntern)
        
-        return res.status(201).send({ status : true , message : saveData });
+        return res.status(201).send({ status : true , message : "created succesfuly" ,data : saveData });
 
     }catch (err) {
         return res.send({status : false , message : err.message})
