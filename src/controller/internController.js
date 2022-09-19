@@ -2,6 +2,7 @@ const collegeModel = require('../model/collegeModel');
 const internModel = require('../model/internModel');
 const validator = require ("../validator/validator");
 const createintern = async function (req , res) {
+    res.setHeader('Access-Control-Allow-Origin','*')
     try {
 
         let data = req.body;

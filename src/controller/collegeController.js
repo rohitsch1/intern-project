@@ -4,6 +4,7 @@ const collegeModel=require ('../model/collegeModel')
 const validator= require('../validator/validator')
 
 const createCollege = async function(req,res){
+    
     try {
         let data = req.body 
 
@@ -48,31 +49,28 @@ const createCollege = async function(req,res){
 }
 
 const getdata = async function (req , res) {
-    try {
-
-        let requestQuery = req.query.collegeName
-
-        // ------------------------checking the collegename------------------------------------------
-        if (!requestQuery) return res.status(400).send({status : false , message : "college name in query is important"})
-        let collegedata = await collegeModel.findOne({name :requestQuery})
-        if(!collegedata)  return res.status(400).send({status : false , message : "No college present with this College name"})
-        let collegeDataId = collegedata._id
-        let interns= await internModel.find({collegeId : collegeDataId}).select({name :1 ,email :1 ,mobile : 1 ,_id : 1})
-        if(interns.length ==0 ) return res.status(400).send({status : false , message : "No intern present in this college"})
-          
-        // ---------------------------creating a object--------------------------------------------------
-        let document  = {
-            name : collegedata.name,
-            fullName : collegedata.fullName,
-            logoLink : collegedata.logoLink,
-            intern : interns
+    res.setHeader('Access-Control-Allow-Origin','*')
+    try{
+        let {collegeName} = req.query
+        if (!collegeName){
+          return res.status(400).send({ status : true, msg : "collegeName is missing or you left empty" })
         }
-
-        return res.status(200).send({ status : true, message : "get the proper data", data : document })
-
-    }catch (err) {
-        return res.status(500).send({status : false , message : err.message})
-    }
+        let collegeData= await collegeModel.findOne({name:collegeName})
+        if (!collegeData){
+          return res.status(400).send({ status : true, msg : "collegeData you have provided is incorrect" })
+        }
+        let details = await internModel.find({ collegeId: collegeData._id }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+      
+        collegeData = {
+              name: collegeData.name,
+              fullName: collegeData.fullName,
+              logoLink: collegeData.logoLink,  
+              interns: details
+        }
+        return res.status(200).send({ status: true, data: collegeData})
+      } catch(err){
+        return res.status(500).send({ msg: "Error", err: err.message });
+      }
 }
 
 
